@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Application", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Infrastructure", "src\services\BlogApp\BlogApp.Infrastructure\BlogApp.Infrastructure.csproj", "{72BB73D7-6708-4135-BDFF-323FAC49C7DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Persistance", "src\services\BlogApp\BlogApp.Persistance\BlogApp.Persistance.csproj", "{27A5E616-2CF8-4445-A325-565EF787B4B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Persistence", "src\services\BlogApp\BlogApp.Persistence\BlogApp.Persistence.csproj", "{27A5E616-2CF8-4445-A325-565EF787B4B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Api", "src\services\BlogApp\BlogApp.Api\BlogApp.Api.csproj", "{E8F7DF68-4829-45C5-BCE1-17A2D4A5A8E8}"
 EndProject

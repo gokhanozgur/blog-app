@@ -16,7 +16,7 @@
       <ProjectReference Include="..\..\..\shared\BlogApp.Notification\BlogApp.Notification.csproj" />
       <ProjectReference Include="..\..\..\shared\BlogApp.Shared\BlogApp.Shared.csproj" />
       <ProjectReference Include="..\BlogApp.Infrastructure\BlogApp.Infrastructure.csproj" />
-      <ProjectReference Include="..\BlogApp.Persistance\BlogApp.Persistance.csproj" />
+      <ProjectReference Include="..\BlogApp.Persistence\BlogApp.Persistence.csproj" />
     </ItemGroup>
 
 </Project>
