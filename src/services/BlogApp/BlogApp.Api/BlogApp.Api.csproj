@@ -11,4 +11,12 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\shared\BlogApp.EventBus\BlogApp.EventBus.csproj" />
+      <ProjectReference Include="..\..\..\shared\BlogApp.Notification\BlogApp.Notification.csproj" />
+      <ProjectReference Include="..\..\..\shared\BlogApp.Shared\BlogApp.Shared.csproj" />
+      <ProjectReference Include="..\BlogApp.Infrastructure\BlogApp.Infrastructure.csproj" />
+      <ProjectReference Include="..\BlogApp.Persistance\BlogApp.Persistance.csproj" />
+    </ItemGroup>
+
 </Project>
