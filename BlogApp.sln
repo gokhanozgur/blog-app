@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.EventBus", "src\ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Notification", "src\services\BlogApp\BlogApp.Notification\BlogApp.Notification.csproj", "{F668ACBC-AAAA-4575-A9AC-E0F53AEDAFEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Api", "src\services\BlogApp\BlogApp.Api\BlogApp.Api.csproj", "{E8F7DF68-4829-45C5-BCE1-17A2D4A5A8E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,7 @@ Global
 		{27A5E616-2CF8-4445-A325-565EF787B4B8} = {49152A04-B7E3-49CD-BAFD-18F02318C416}
 		{566B6EFC-B956-4A4F-9303-9443977FA0EA} = {49152A04-B7E3-49CD-BAFD-18F02318C416}
 		{F668ACBC-AAAA-4575-A9AC-E0F53AEDAFEF} = {49152A04-B7E3-49CD-BAFD-18F02318C416}
+		{E8F7DF68-4829-45C5-BCE1-17A2D4A5A8E8} = {49152A04-B7E3-49CD-BAFD-18F02318C416}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{45C80981-FBEC-4BD2-9058-ECEF3166316A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -70,5 +73,9 @@ Global
 		{F668ACBC-AAAA-4575-A9AC-E0F53AEDAFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F668ACBC-AAAA-4575-A9AC-E0F53AEDAFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F668ACBC-AAAA-4575-A9AC-E0F53AEDAFEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F7DF68-4829-45C5-BCE1-17A2D4A5A8E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F7DF68-4829-45C5-BCE1-17A2D4A5A8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F7DF68-4829-45C5-BCE1-17A2D4A5A8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F7DF68-4829-45C5-BCE1-17A2D4A5A8E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
