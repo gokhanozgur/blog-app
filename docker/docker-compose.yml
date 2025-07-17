@@ -1,0 +1,158 @@
+version: '3.8'
+
+services:
+  # PostgreSQL - Kullanıcı yönetimi ve yetkilendirme için
+  postgres:
+    image: postgres:latest
+    container_name: blogapp-postgres
+    environment:
+      POSTGRES_DB: BlogAppDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+
+  # MongoDB - Blog postları için
+  mongodb:
+    image: mongo:latest
+    container_name: blogapp-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: BlogAppDb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+
+  # Redis - Caching için
+  redis:
+    image: redis:latest
+    container_name: blogapp-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # RabbitMQ - Event-driven messaging için
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: blogapp-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    ports:
+      - "5672:5672"    # AMQP port
+      - "15672:15672"  # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+
+  # HashiCorp Vault - Konfigürasyon yönetimi için
+  vault:
+    image: hashicorp/vault:latest
+    container_name: blogapp-vault
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: myroot
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    ports:
+      - "8200:8200"
+    volumes:
+      - vault_data:/vault/data
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+    cap_add:
+      - IPC_LOCK
+
+  # Prometheus - Monitoring ve metrics için
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: blogapp-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  # Grafana - Dashboard ve görselleştirme için
+  grafana:
+    image: grafana/grafana:latest
+    container_name: blogapp-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+
+  # Loki - Log aggregation için
+  loki:
+    image: grafana/loki:latest
+    container_name: blogapp-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-config.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+    command: -config.file=/etc/loki/local-config.yaml
+
+  # Seq - .NET için log viewer (opsiyonel, Loki'ye ek olarak)
+  seq:
+    image: datalust/seq:latest
+    container_name: blogapp-seq
+    environment:
+      ACCEPT_EULA: Y
+    ports:
+      - "5341:80"
+    volumes:
+      - seq_data:/data
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  mongodb_data:
+  redis_data:
+  rabbitmq_data:
+  vault_data:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  seq_data:
+
+networks:
+  blogapp-network:
+    driver: bridge
