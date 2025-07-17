@@ -16,6 +16,18 @@ services:
     networks:
       - blogapp-network
     restart: unless-stopped
+  
+  # PostgreSQL - Exporter
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter
+    container_name: blogapp-postgres-exporter
+    environment:
+      DATA_SOURCE_NAME: "postgresql://postgres:postgres123@postgres:5432/BlogAppDb?sslmode=disable"
+    ports:
+      - "9187:9187"
+    networks:
+      - blogapp-network
+    restart: unless-stopped
 
   # MongoDB - Blog postları için
   mongodb:
@@ -32,6 +44,17 @@ services:
     networks:
       - blogapp-network
     restart: unless-stopped
+    
+  mongodb-exporter:
+    image: percona/mongodb_exporter:2.37.0
+    container_name: blogapp-mongodb-exporter
+    environment:
+      MONGODB_URI: "mongodb://admin:admin123@mongodb:27017"
+    ports:
+      - "9216:9216"
+    networks:
+      - blogapp-network
+    restart: unless-stopped
 
   # Redis - Caching için
   redis:
@@ -45,6 +68,17 @@ services:
       - blogapp-network
     restart: unless-stopped
     command: redis-server --appendonly yes
+    
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: blogapp-redis-exporter
+    environment:
+      REDIS_ADDR: "redis://redis:6379"
+    ports:
+      - "9121:9121"
+    networks:
+      - blogapp-network
+    restart: unless-stopped
 
   # RabbitMQ - Event-driven messaging için
   rabbitmq:
@@ -58,6 +92,19 @@ services:
       - "15672:15672"  # Management UI
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - blogapp-network
+    restart: unless-stopped
+    
+  rabbitmq-exporter:
+    image: kbudde/rabbitmq-exporter:latest
+    container_name: blogapp-rabbitmq-exporter
+    environment:
+      RABBIT_URL: "http://admin:admin123@rabbitmq:15672"
+      RABBIT_USER: "admin"
+      RABBIT_PASSWORD: "admin123"
+    ports:
+      - "9419:9419"
     networks:
       - blogapp-network
     restart: unless-stopped
