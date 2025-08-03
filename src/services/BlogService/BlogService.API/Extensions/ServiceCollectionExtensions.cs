@@ -16,6 +16,7 @@ using BlogService.Persistence.Contexts;
 using BlogService.Persistence.Repositories;
 using BlogService.Persistence.Settings;
 using FluentValidation;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -37,6 +38,19 @@ public static class ServiceCollectionExtensions
         services.AddValidatorsFromAssembly(typeof(CreateBlogPostCommandValidator).Assembly);
         services.AddValidatorsFromAssembly(typeof(CreateCommentCommandValidator).Assembly);
         services.AddValidatorsFromAssembly(typeof(CreateCategoryCommandValidator).Assembly);
+        
+        services.AddMassTransit(x =>
+        {
+            x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host("localhost", "/", c =>
+                {
+                    c.Username("admin");
+                    c.Password("admin123");
+                });
+            });
+        });
+        
         return services;
     }
     
