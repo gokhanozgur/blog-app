@@ -11,13 +11,28 @@ public static class ServiceCollectionExtensions
     {
         services.AddMassTransit(x =>
         {
-            x.AddConsumer<BlogPostCreatedConsumer>();
-            x.AddConsumer<BlogPostDeletedConsumer>();
-            x.AddConsumer<CategoryCreatedConsumer>();
-            x.AddConsumer<CategoryDeletedConsumer>();
+            x.AddConsumer<BlogPostCreatedConsumer>(c =>
+            {
+                c.UseMessageRetry(r => r.Immediate(3));
+            });
+            x.AddConsumer<BlogPostDeletedConsumer>(c =>
+            {
+                c.UseMessageRetry(r => r.Immediate(3));
+            });
+            x.AddConsumer<CategoryCreatedConsumer>(c =>
+            {
+                c.UseMessageRetry(r => r.Immediate(3));
+            });
+            x.AddConsumer<CategoryDeletedConsumer>(c =>
+            {
+                c.UseMessageRetry(r => r.Immediate(3));
+            });
 
             x.UsingRabbitMq((context, cfg) =>
             {
+                cfg.UseDelayedRedelivery(r =>
+                    r.Interval(3, TimeSpan.FromMinutes(5)));
+                
                 cfg.Host("localhost", "/", c =>
                 {
                     c.Username("admin");
