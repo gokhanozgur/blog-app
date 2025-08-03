@@ -1,6 +1,7 @@
 using MassTransit;
 using NotificationService.Application.Consumers.BlogPosts;
 using NotificationService.Application.Consumers.Categories;
+using RabbitMQ.Client;
 
 
 namespace NotificationService.API.Extensions;
@@ -42,6 +43,21 @@ public static class ServiceCollectionExtensions
                 cfg.ConfigureEndpoints(context);
             });
         });
+        
+        return services;
+    }
+    
+    public static IServiceCollection AddMonitoring(this IServiceCollection services)
+    {
+        services.AddHealthChecks()
+            .AddRabbitMQ(async sp =>
+            {
+                var factory = new RabbitMQ.Client.ConnectionFactory
+                {
+                    Uri = new Uri("amqp://admin:admin123@localhost:5672")
+                };
+                return await factory.CreateConnectionAsync();
+            }, name: "rabbitmq");
         
         return services;
     }
