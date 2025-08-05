@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
         {
             x.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host("localhost", "/", c =>
+                cfg.Host("rabbitmq", "/", c =>
                 {
                     c.Username("admin");
                     c.Password("admin123");
