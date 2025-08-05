@@ -36,8 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4FD9D73E-3550-410F-A5D2-241869C0AAB8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{65FACF23-CA72-4CD2-9EE8-9C08CBF069AA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogService.Application", "src\services\BlogService\BlogService.Application\BlogService.Application.csproj", "{CEBA8D67-77B1-4213-A28A-70A310550540}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogService.Domain", "src\services\BlogService\BlogService.Domain\BlogService.Domain.csproj", "{A1B96A78-9B58-41C4-83D6-EBCC85739A8C}"
