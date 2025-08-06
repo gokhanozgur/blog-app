@@ -9,10 +9,11 @@ services:
       - "5001:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8080
     depends_on:
       - rabbitmq
       - mongodb
+    networks:
+      - blogapp-network
 
   user-service:
     build:
@@ -24,6 +25,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - postgres
+    networks:
+      - blogapp-network
 
   notification-service:
     build:
@@ -35,6 +38,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - rabbitmq
+    networks:
+      - blogapp-network
 
   # PostgreSQL - Kullanıcı yönetimi ve yetkilendirme için
   postgres:

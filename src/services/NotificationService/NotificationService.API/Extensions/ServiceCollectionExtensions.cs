@@ -34,7 +34,7 @@ public static class ServiceCollectionExtensions
                 cfg.UseDelayedRedelivery(r =>
                     r.Interval(3, TimeSpan.FromMinutes(5)));
                 
-                cfg.Host("localhost", "/", c =>
+                cfg.Host("rabbitmq", "/", c =>
                 {
                     c.Username("admin");
                     c.Password("admin123");
@@ -54,7 +54,7 @@ public static class ServiceCollectionExtensions
             {
                 var factory = new RabbitMQ.Client.ConnectionFactory
                 {
-                    Uri = new Uri("amqp://admin:admin123@localhost:5672")
+                    Uri = new Uri("amqp://admin:admin123@rabbitmq:5672")
                 };
                 return await factory.CreateConnectionAsync();
             }, name: "rabbitmq");
