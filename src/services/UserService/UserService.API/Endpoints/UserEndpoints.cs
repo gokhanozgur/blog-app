@@ -23,7 +23,7 @@ public static class UserEndpoints
             var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
         });
         
-        app.MapPost("/users", [Authorize] async (IMediator mediator, CreateUserDto dto) =>
+        app.MapPost("/users", async (IMediator mediator, CreateUserDto dto) =>
         {
             var result = await mediator.Send(new CreateUserCommand(dto));
             return Results.Created($"/users/{result.Id}", result);

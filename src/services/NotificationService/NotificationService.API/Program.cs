@@ -1,5 +1,6 @@
 using NotificationService.API.Extensions;
 using Prometheus;
+using Shared.Vault;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddVaultConfiguration(
+    builder.Configuration,
+    $"BlogApp-NotificationService-Application-Settings-{builder.Environment.EnvironmentName}","data");
 
 builder.Services.AddNotificationServiceExtensions(builder.Configuration);
 builder.Services.AddHealthChecks();

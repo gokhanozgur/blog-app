@@ -1,12 +1,10 @@
 using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
+using Shared.Vault;
 using UserService.API.Endpoints;
 using UserService.API.Extensions;
 using UserService.API.Middlewares;
-using UserService.Application.Interfaces;
-using UserService.Persistence.Contexts;
-using UserService.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerWithJwt();
 
+builder.Services.AddVaultConfiguration(
+    builder.Configuration,
+    $"BlogApp-UserService-Application-Settings-{builder.Environment.EnvironmentName}","data");
+
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -26,6 +28,8 @@ builder.Services.AddMonitoring();
 builder.Services.AddRateLimiting(builder.Configuration);
 
 var app = builder.Build();
+
+await app.MigrateDatabaseAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

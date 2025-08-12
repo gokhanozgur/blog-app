@@ -29,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Shared.Vault\Shared.Vault.csproj" />
       <ProjectReference Include="..\BlogService.Infrastructure\BlogService.Infrastructure.csproj" />
       <ProjectReference Include="..\BlogService.Persistence\BlogService.Persistence.csproj" />
     </ItemGroup>

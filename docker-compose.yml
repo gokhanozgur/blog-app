@@ -12,6 +12,7 @@ services:
     depends_on:
       - rabbitmq
       - mongodb
+      - vault
     networks:
       - blogapp-network
     restart: unless-stopped
@@ -26,6 +27,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - postgres
+      - vault
     networks:
       - blogapp-network
     restart: unless-stopped
@@ -40,6 +42,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - rabbitmq
+      - vault
     networks:
       - blogapp-network
     restart: unless-stopped

@@ -2,6 +2,7 @@ using AspNetCoreRateLimit;
 using BlogService.API.Endpoints;
 using BlogService.API.Extensions;
 using Prometheus;
+using Shared.Vault;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerWithJwt();
+
+builder.Services.AddVaultConfiguration(
+    builder.Configuration,
+    $"BlogApp-BlogService-Application-Settings-{builder.Environment.EnvironmentName}","data");
 
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
